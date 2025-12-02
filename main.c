@@ -79,22 +79,30 @@ void CMP(cpu6502 *cpu, uint8_t M){
   // C Z N affected
   cpu->P.C = (cpu->A >= M);
   cpu->P.Z = (cpu->A == M);
-  cpu->A = (cpu->A & 0x80) != 0; 
+  cpu->P.N = (cpu->A & 0x80) != 0; 
 }
 
 void CPX(cpu6502 *cpu, uint8_t M){
   // C Z N affected
   cpu->P.C = (cpu->X >= M);
   cpu->P.Z = (cpu->X == M);
-  cpu->X = (cpu->X & 0x80) != 0; 
+  cpu->P.N = (cpu->X & 0x80) != 0; 
 }
 
 void CPY(cpu6502 *cpu, uint8_t M){
   // C Z N affected
   cpu->P.C = (cpu->Y >= M);
   cpu->P.Z = (cpu->Y == M);
-  cpu->Y = (cpu->Y & 0x80) != 0; 
+  cpu->P.N = (cpu->Y & 0x80) != 0; 
 }
 
-void DEC(cpu6502 *cpu)
+void DEC(cpu6502 *cpu, uint16_t addr){
+  // Z N affected
+  uint8_t value = memory[addr];
+  value = (value - 1) & U8_MAX;
+
+  memory[addr] = value;
+  cpu->P.Z = (value == 0);
+  cpu->P.N = (value & 0x80) != 0;
+}
 
