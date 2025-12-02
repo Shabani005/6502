@@ -33,6 +33,8 @@ typedef enum {
   TOKEN_RETURN
 } symbols;
 
+
+// THESE ARE USELESS FOR NOW, COULD BE USEFUL THOUGH. (BUT NO NEED TO BOTHER WITH THEM)
 typedef enum {
   BHV_STACK,
   BHV_UNDEFINED,
@@ -68,8 +70,6 @@ char *token_type_to_string(symbols type) {
     case TOKEN_IDENT_INT: return "TOKEN_IDENT_INT";
     case TOKEN_EQU: return "TOKEN_EQU";
     case TOKEN_RETURN: return "TOKEN_RETURN";
-
-                    // default: return "UNKNOWN_SYMBOL";
   }
 }
 
@@ -151,10 +151,6 @@ void token_free(Token *tok) {
   free(tok->previous_token);
 }
 
-
-int str_to_int(char *strint) { return atoi(strint); }
-float str_to_float(char *strif) { return strtof(strif, NULL); }
-
 size_t read_from_tok(Token *tok, const char *input, size_t cursor) {
   char buf[64];
   size_t start = cursor;
@@ -192,13 +188,13 @@ size_t read_from_tok(Token *tok, const char *input, size_t cursor) {
       if (i >= sizeof(buf) - 1) break;
     }
     buf[i] = '\0';
-    
+    // IDENTIFIERS
     if (strcmp(buf, "let") == 0) token_push(tok, TOKEN_LET, buf, BHV_UNDEFINED, cursor - start);
     else if (strcmp(buf, "fn") == 0) token_push(tok, TOKEN_FN, buf, BHV_UNDEFINED, cursor - start);
     else if (strcmp(buf, "return") == 0) token_push(tok, TOKEN_RETURN, buf, BHV_UNDEFINED, cursor - start);
     else if (strcmp(buf, "int") == 0) token_push(tok, TOKEN_IDENT_INT, buf, BHV_UNDEFINED, cursor - start); // TODO: unhardcode
     else token_push(tok, TOKEN_IDENTIFIER, buf, BHV_IDENT, cursor - start);
-
+    //-----------------------------------------------------------------------------------------------------------
     return cursor - start;
   }
 
