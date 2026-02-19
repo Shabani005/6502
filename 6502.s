@@ -2,18 +2,46 @@
 .org $8000
 
 start:
-    ldx #5
+    lda #'H'
+    sta $FF00
 
-loop:
-    txa
-    jsr print_digit
-    dex
-    bne loop
+    lda #'e'
+    sta $FF00
+
+    lda #'l'
+    sta $FF00
+
+    lda #'l'
+    sta $FF00
+
+    lda #'o'
+    sta $FF00
+
+    lda #','
+    sta $FF00
+
+    lda #' '
+    sta $FF00
+
+    lda #'W'
+    sta $FF00
+
+    lda #'o'
+    sta $FF00
+
+    lda #'r'
+    sta $FF00
+
+    lda #'l'
+    sta $FF00
+
+    lda #'d'
+    sta $FF00
+
+    lda #'!'
+    sta $FF00
+
+    lda #$0A 
+    sta $FF00
+
     brk
-
-print_digit:
-    adc #'0'
-    sta $FF00
-    lda #$0A
-    sta $FF00
-    rts

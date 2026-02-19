@@ -428,7 +428,7 @@ void ASL_A_c(cpu6502 *cpu) {
   cpu->P.N = (value & 0x80) != 0;
 }
 
-#define ASL_M(M) ASL_A_c(&default_cpu, M)
+#define ASL_M(M) ASL_M_c(&default_cpu, M)
 void ASL_M_c(cpu6502 *cpu, uint16_t addr) {
   // C Z N affected
   uint8_t value = memory[addr];
@@ -507,7 +507,7 @@ void ROR_A_c(cpu6502 *cpu) {
   cpu->P.N = (value & 0x80) != 0;
 }
 
-#define ROR_M(M) ROL_M_c(&default_cpu, M)
+#define ROR_M(M) ROR_M_c(&default_cpu, M)
 void ROR_M_c(cpu6502 *cpu, uint16_t addr) {
   // C Z N affected
   uint8_t value = memory[addr];
